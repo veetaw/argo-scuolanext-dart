@@ -9,5 +9,3 @@ export 'src/model/subject.dart';
 export 'src/model/teacher.dart';
 export 'src/model/timetable.dart';
 export 'src/model/vote.dart';
-// models
-
