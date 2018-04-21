@@ -41,7 +41,7 @@ class Client {
   ///
   /// Call this to login with username and password.
   /// Use [initClient] to login with token.
-  Future firstLogin(
+  Future<String> firstLogin(
       {String schoolCode, String username, String password}) async {
     assert(schoolCode != null && username != null && password != null);
     var resp = await _makeRequest(
@@ -53,7 +53,8 @@ class Client {
     this.schoolCode = schoolCode;
     token = resp["token"];
 
-    initClient(schoolCode: schoolCode, token: token);
+    await initClient(schoolCode: schoolCode, token: token);
+    return token;
   }
 
   Future initClient({String schoolCode, String token}) async {
@@ -145,11 +146,15 @@ class Client {
           'x-cod-min': schoolCode ?? this.schoolCode,
           'x-user-id': username,
           'x-pwd': password,
-          'x-auth-token': token,
-          'x-prg-alunno': this._prgAlunno,
-          'x-prg-scuola': this._prgScuola,
-          'x-prg-scheda': this._prgScheda
-        });
+        }
+          ..addAll(method == "login"
+              ? {}
+              : {
+            'x-auth-token': token,
+            'x-prg-alunno': this._prgAlunno,
+            'x-prg-scuola': this._prgScuola,
+            'x-prg-scheda': this._prgScheda
+          }));
 
     if (response.statusCode != 200) {
       throw new Exception("$method failed\n${response.request}\n${response

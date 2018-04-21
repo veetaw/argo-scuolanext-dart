@@ -7,14 +7,14 @@ main() async {
   String schoolCode, username, password;
 
   print("Type your school code: ");
-  schoolCode = stdin.readLineSync();
+  schoolCode = await stdin.readLineSync();
 
   print("Now your username: ");
-  username = stdin.readLineSync();
+  username = await stdin.readLineSync();
 
   print("and your password: ");
   // that's not nice, need to check if exists a way to obscure input
-  password = stdin.readLineSync();
+  password = await stdin.readLineSync();
 
   await client.firstLogin(
       schoolCode: schoolCode, username: username, password: password);
