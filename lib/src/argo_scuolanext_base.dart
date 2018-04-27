@@ -15,6 +15,13 @@ import 'model/vote.dart';
 /// Remember to run firstLogin() or initClient() to properly use this class
 class Client {
   final http.Client _client = new http.Client();
+  static final Client _instance = new Client._internal();
+
+  factory Client() {
+    return _instance;
+  }
+
+  Client._internal();
 
   final List<String> _apiUrl = [
     "https",
