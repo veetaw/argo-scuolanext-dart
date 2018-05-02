@@ -14,19 +14,18 @@ import 'model/vote.dart';
 ///
 /// Remember to run firstLogin() or initClient() to properly use this class
 class Client {
-  final http.Client _client = new http.Client();
   static final Client _instance = new Client._internal();
 
-  factory Client() {
-    return _instance;
-  }
+  factory Client() => _instance;
 
   Client._internal();
+
+  final http.Client _client = new http.Client();
 
   final List<String> _apiUrl = [
     "https",
     "www.portaleargo.it",
-    "/famiglia/api/rest/"
+    "/famiglia/api/rest/",
   ];
   final String _apiKey = "ax6542sdru3217t4eesd9";
   final String _version = "2.0.2";
@@ -88,30 +87,26 @@ class Client {
         (int i) => new Absence.fromJson(response["dati"][i]));
   }
 
-  Future whatHappened(DateTime date) async {
-    return _makeRequest(method: "oggi", date: date); // TODO: test
-  }
+  // TODO: test
+  Future whatHappened(DateTime date) async =>
+      _makeRequest(method: "oggi", date: date);
 
-  Future notes() async {
-    return _makeRequest(method: "notedisciplinari"); // TODO: test
-  }
+  // TODO: test
+  Future notes() async => _makeRequest(method: "notedisciplinari");
+
+  // TODO: test
+  Future homeworks() async => _makeRequest(method: "compiti");
+
+  // TODO: test
+  Future reminders() async => _makeRequest(method: "promemoria");
 
   /// votes
   ///
   /// get a list of [Vote]
-  Future votes() async {
-    return (await _makeRequest(method: "votigiornalieri"))["dati"]
-        .map((Map v) => new Vote.fromJson(v))
-        .toList();
-  }
-
-  Future homeworks() async {
-    return _makeRequest(method: "compiti"); // TODO: test
-  }
-
-  Future reminders() async {
-    return _makeRequest(method: "promemoria"); // TODO: test
-  }
+  Future votes() async =>
+      (await _makeRequest(method: "votigiornalieri"))["dati"]
+          .map((Map v) => new Vote.fromJson(v))
+          .toList();
 
   ///timetable
   ///
@@ -153,15 +148,14 @@ class Client {
           'x-cod-min': schoolCode ?? this.schoolCode,
           'x-user-id': username,
           'x-pwd': password,
-        }
-          ..addAll(method == "login"
-              ? {}
-              : {
-            'x-auth-token': token,
-            'x-prg-alunno': this._prgAlunno,
-            'x-prg-scuola': this._prgScuola,
-            'x-prg-scheda': this._prgScheda
-          }));
+        }..addAll(method == "login"
+            ? {}
+            : {
+                'x-auth-token': token,
+                'x-prg-alunno': this._prgAlunno,
+                'x-prg-scuola': this._prgScuola,
+                'x-prg-scheda': this._prgScheda
+              }));
 
     if (response.statusCode != 200) {
       throw new Exception("$method failed\n${response.request}\n${response
