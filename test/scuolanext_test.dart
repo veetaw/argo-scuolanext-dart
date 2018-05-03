@@ -1,4 +1,4 @@
-import 'package:argo_scuolanext/argo_scuolanext.dart';
+import 'package:scuolanext/scuolanext.dart';
 import 'package:test/test.dart';
 
 void main() {

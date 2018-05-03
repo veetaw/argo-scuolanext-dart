@@ -1,6 +1,6 @@
-library argo_scuolanext;
+library scuolanext;
 
-export 'src/argo_scuolanext_base.dart';
+export 'src/scuolanext_base.dart';
 export 'src/model/absence.dart';
 export 'src/model/reminder.dart';
 export 'src/model/school.dart';

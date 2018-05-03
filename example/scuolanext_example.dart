@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:argo_scuolanext/argo_scuolanext.dart';
+import 'package:scuolanext/scuolanext.dart';
 
 main() async {
   Client client = new Client();

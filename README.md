@@ -7,7 +7,7 @@ This package can be used on both Dart (Web & CLI) and Flutter.
 
 First import this package with:
 ```dart
-import 'package:argo_scuolanext/argo_scuolanext.dart';
+import 'package:scuolanext/scuolanext.dart';
 ```
 then instantiate a Client object:
 ```dart
